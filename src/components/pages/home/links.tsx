@@ -1,5 +1,5 @@
 export function HomeLinks() {
-  const links = [
+  const socialLinks = [
     {
       label: "GitHub",
       url: "https://github.com/CndGui",
@@ -17,7 +17,7 @@ export function HomeLinks() {
   return (
     <div>
       <ul className="flex flex-col gap-2">
-        {links.map((link) => (
+        {socialLinks.map((link) => (
           <li key={link.url}>
             <div className="transform transition-transform hover:scale-105">
               <a
