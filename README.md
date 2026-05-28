@@ -31,6 +31,27 @@ Full Stack Developer based in Goias, Brazil. Specialized in **React** and **Type
 - Git
 - Recoil
 
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Installation
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Adding content
+
+- **New experience:** add an entry to `EXPERIENCES_DATA` in `src/components/pages/home/experiences.tsx`
+- **New technology:** add an entry to the relevant category in `TECH_STACK_DATA` in `src/components/pages/home/tech-stack.tsx`
+
 ## Built With
 
 - **Framework:** Next.js 16 (App Router)
