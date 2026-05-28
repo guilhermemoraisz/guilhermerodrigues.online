@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface Experience {
+export interface Experience {
   company: string;
   role: string;
   duration: string;
@@ -13,12 +13,19 @@ export function HomeExperiences() {
       <p className="font-semibold text-lg">Experiences</p>
 
       <div className="flex flex-col gap-4">
-        {experiencesData.map((exp) => (
+        {EXPERIENCES_DATA.map((exp) => (
           <div
             key={exp.company}
             className="flex items-center gap-4 border-text/20 border-b px-4 py-2"
           >
-            <Image unoptimized src={exp.image} alt={exp.company} width={56} height={56} className="rounded-md" />
+            <Image
+              unoptimized
+              src={exp.image}
+              alt={exp.company}
+              width={56}
+              height={56}
+              className="rounded-md"
+            />
             <div>
               <p className="font-semibold">{exp.role}</p>
               <p className="text-sm text-text/70">{exp.company}</p>
@@ -31,7 +38,7 @@ export function HomeExperiences() {
   );
 }
 
-const experiencesData: Experience[] = [
+const EXPERIENCES_DATA: Experience[] = [
   {
     company: "CI&T",
     role: "Developer",
