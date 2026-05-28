@@ -3,21 +3,45 @@
 import Image from "next/image";
 import { useState } from "react";
 
+/** A single technology entry with its name, docs URL, and icon URL. */
 interface TechStackItem {
   name: string;
   url: string;
   icon: string;
 }
 
+/** A named category grouping a set of tech stack items. */
 interface TechStackCategory {
   category: string;
   items: TechStackItem[];
 }
 
-export function HomeTechStack() {
-  const [selectedCategory, setSelectedCategory] = useState(techStackData[0].category);
+interface CategoryButtonProps {
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+}
 
-  const currentItems = techStackData.find((s) => s.category === selectedCategory)?.items ?? [];
+function CategoryButton({ label, selected, onClick }: CategoryButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`transform cursor-pointer border-b-2 px-1 transition-transform hover:scale-105 ${
+        selected
+          ? "border-text text-text"
+          : "border-background text-text/50"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+export function HomeTechStack() {
+  const [selectedCategory, setSelectedCategory] = useState(TECH_STACK_DATA[0].category);
+
+  const currentItems = TECH_STACK_DATA.find((s) => s.category === selectedCategory)?.items ?? [];
 
   return (
     <div className="flex flex-col gap-4">
@@ -25,16 +49,13 @@ export function HomeTechStack() {
 
       <div className="flex flex-col gap-4">
         <div className="flex gap-4">
-          {techStackData.map((stack) => (
-            <button
-              type="button"
+          {TECH_STACK_DATA.map((stack) => (
+            <CategoryButton
               key={stack.category}
+              label={stack.category}
+              selected={selectedCategory === stack.category}
               onClick={() => setSelectedCategory(stack.category)}
-              className="transform cursor-pointer border-background border-b-2 px-1 text-text/50 transition-transform hover:scale-105 data-[selected=true]:border-text data-[selected=true]:text-text"
-              data-selected={selectedCategory === stack.category}
-            >
-              {stack.category}
-            </button>
+            />
           ))}
         </div>
 
@@ -57,7 +78,7 @@ export function HomeTechStack() {
   );
 }
 
-const techStackData: TechStackCategory[] = [
+const TECH_STACK_DATA: TechStackCategory[] = [
   {
     category: "Front-End",
     items: [
