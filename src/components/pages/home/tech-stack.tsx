@@ -27,10 +27,8 @@ function CategoryButton({ label, selected, onClick }: CategoryButtonProps) {
     <button
       type="button"
       onClick={onClick}
-      className={`transform cursor-pointer border-b-2 px-1 transition-transform hover:scale-105 ${
-        selected
-          ? "border-text text-text"
-          : "border-background text-text/50"
+      className={`flex-shrink-0 whitespace-nowrap transform cursor-pointer border-b-2 px-1 transition-transform hover:scale-105 ${
+        selected ? "border-text text-text" : "border-background text-text/50"
       }`}
     >
       {label}
@@ -48,7 +46,7 @@ export function HomeTechStack() {
       <p className="font-semibold text-lg">Tech Stack</p>
 
       <div className="flex flex-col gap-4">
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           {TECH_STACK_DATA.map((stack) => (
             <CategoryButton
               key={stack.category}
