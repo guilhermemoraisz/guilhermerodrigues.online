@@ -1,8 +1,18 @@
-export function HomeLinks() {
+interface HomeLinksProps {
+  resumeLabel: string;
+}
+
+export function HomeLinks({ resumeLabel }: HomeLinksProps) {
+  const links = [
+    { label: "GitHub", url: "https://github.com/CndGui" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/CndGui/" },
+    { label: resumeLabel, url: "/files/resume.pdf" },
+  ];
+
   return (
     <div>
       <ul className="flex flex-col gap-2">
-        {SOCIAL_LINKS.map((link) => (
+        {links.map((link) => (
           <li key={link.url}>
             <div className="transform transition-transform hover:scale-105">
               <a
@@ -20,18 +30,3 @@ export function HomeLinks() {
     </div>
   );
 }
-
-const SOCIAL_LINKS = [
-  {
-    label: "GitHub",
-    url: "https://github.com/CndGui",
-  },
-  {
-    label: "LinkedIn",
-    url: "https://www.linkedin.com/in/CndGui/",
-  },
-  {
-    label: "Resume",
-    url: "/files/resume.pdf",
-  },
-];

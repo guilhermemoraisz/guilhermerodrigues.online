@@ -7,20 +7,25 @@ vi.mock("next/image", () => ({
 }));
 
 describe("HomeExperiences", () => {
-  it("renders the section title", () => {
-    render(<HomeExperiences />);
+  it("renders section title in English", () => {
+    render(<HomeExperiences sectionTitle="Experiences" />);
     expect(screen.getByText("Experiences")).toBeInTheDocument();
   });
 
+  it("renders section title in Portuguese", () => {
+    render(<HomeExperiences sectionTitle="Experiências" />);
+    expect(screen.getByText("Experiências")).toBeInTheDocument();
+  });
+
   it("renders all experience entries", () => {
-    render(<HomeExperiences />);
+    render(<HomeExperiences sectionTitle="Experiences" />);
     expect(screen.getByText("CI&T")).toBeInTheDocument();
     expect(screen.getByText("Puc GO")).toBeInTheDocument();
     expect(screen.getByText("Screen Network")).toBeInTheDocument();
   });
 
   it("renders role and duration for each entry", () => {
-    render(<HomeExperiences />);
+    render(<HomeExperiences sectionTitle="Experiences" />);
     expect(screen.getByText("Developer")).toBeInTheDocument();
     expect(screen.getByText("Software Engineer")).toBeInTheDocument();
     expect(screen.getByText("Apr 2026 - Present")).toBeInTheDocument();

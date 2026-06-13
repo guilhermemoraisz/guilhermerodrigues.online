@@ -2,17 +2,18 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import type { Messages } from "@/lib/i18n";
 
-/** A single technology entry with its name, docs URL, and icon URL. */
+type CategoryKey = "frontend" | "backend" | "database" | "tools";
+
 interface TechStackItem {
   name: string;
   url: string;
   icon: string;
 }
 
-/** A named category grouping a set of tech stack items. */
 interface TechStackCategory {
-  category: string;
+  category: CategoryKey;
   items: TechStackItem[];
 }
 
@@ -20,6 +21,11 @@ interface CategoryButtonProps {
   label: string;
   selected: boolean;
   onClick: () => void;
+}
+
+interface HomeTechStackProps {
+  sectionTitle: string;
+  categoryLabels: Messages["categories"];
 }
 
 function CategoryButton({ label, selected, onClick }: CategoryButtonProps) {
@@ -36,21 +42,23 @@ function CategoryButton({ label, selected, onClick }: CategoryButtonProps) {
   );
 }
 
-export function HomeTechStack() {
-  const [selectedCategory, setSelectedCategory] = useState(TECH_STACK_DATA[0].category);
+export function HomeTechStack({ sectionTitle, categoryLabels }: HomeTechStackProps) {
+  const [selectedCategory, setSelectedCategory] = useState<CategoryKey>(
+    TECH_STACK_DATA[0].category,
+  );
 
   const currentItems = TECH_STACK_DATA.find((s) => s.category === selectedCategory)?.items ?? [];
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="font-semibold text-lg">Tech Stack</p>
+      <p className="font-semibold text-lg">{sectionTitle}</p>
 
       <div className="flex flex-col gap-4">
         <div className="flex gap-3">
           {TECH_STACK_DATA.map((stack) => (
             <CategoryButton
               key={stack.category}
-              label={stack.category}
+              label={categoryLabels[stack.category]}
               selected={selectedCategory === stack.category}
               onClick={() => setSelectedCategory(stack.category)}
             />
@@ -78,7 +86,7 @@ export function HomeTechStack() {
 
 const TECH_STACK_DATA: TechStackCategory[] = [
   {
-    category: "Front-End",
+    category: "frontend",
     items: [
       {
         name: "TypeScript",
@@ -113,7 +121,7 @@ const TECH_STACK_DATA: TechStackCategory[] = [
     ],
   },
   {
-    category: "Back-End",
+    category: "backend",
     items: [
       {
         name: "NestJS",
@@ -133,7 +141,7 @@ const TECH_STACK_DATA: TechStackCategory[] = [
     ],
   },
   {
-    category: "Database",
+    category: "database",
     items: [
       {
         name: "PostgreSQL",
@@ -163,7 +171,7 @@ const TECH_STACK_DATA: TechStackCategory[] = [
     ],
   },
   {
-    category: "Tools",
+    category: "tools",
     items: [
       {
         name: "Git",

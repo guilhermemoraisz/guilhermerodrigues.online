@@ -7,10 +7,14 @@ export interface Experience {
   image: string;
 }
 
-export function HomeExperiences() {
+interface HomeExperiencesProps {
+  sectionTitle: string;
+}
+
+export function HomeExperiences({ sectionTitle }: HomeExperiencesProps) {
   return (
     <div className="flex flex-col gap-4">
-      <p className="font-semibold text-lg">Experiences</p>
+      <p className="font-semibold text-lg">{sectionTitle}</p>
 
       <div className="flex flex-col gap-4">
         {EXPERIENCES_DATA.map((exp) => (
