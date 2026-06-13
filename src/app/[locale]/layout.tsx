@@ -1,18 +1,22 @@
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
-import { getMessages, SUPPORTED_LOCALES, type Locale } from "@/lib/i18n";
+import { getMessages, SUPPORTED_LOCALES, DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const BASE_URL = "https://www.guilhermerodrigues.site";
 
+function toLocale(raw: string): Locale {
+  return SUPPORTED_LOCALES.includes(raw as Locale) ? (raw as Locale) : DEFAULT_LOCALE;
+}
+
 export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
-  const { locale } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const locale = toLocale((await params).locale);
   const { seo } = getMessages(locale);
 
   return {
@@ -52,9 +56,9 @@ export default async function LocaleLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const locale = toLocale((await params).locale);
   const htmlLang = locale === "pt-br" ? "pt-BR" : "en-US";
 
   return (

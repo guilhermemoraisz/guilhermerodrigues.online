@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { SUPPORTED_LOCALES, detectLocale } from "@/lib/i18n";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (SUPPORTED_LOCALES.some((l) => pathname.startsWith(`/${l}`))) {
