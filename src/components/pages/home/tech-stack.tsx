@@ -33,7 +33,7 @@ function CategoryButton({ label, selected, onClick }: CategoryButtonProps) {
     <button
       type="button"
       onClick={onClick}
-      className={`flex-shrink-0 whitespace-nowrap transform cursor-pointer border-b-2 px-1 transition-transform hover:scale-105 ${
+      className={`flex-shrink-0 transform cursor-pointer whitespace-nowrap border-b-2 px-1 transition-transform hover:scale-105 ${
         selected ? "border-text text-text" : "border-background text-text/50"
       }`}
     >
@@ -44,7 +44,7 @@ function CategoryButton({ label, selected, onClick }: CategoryButtonProps) {
 
 export function HomeTechStack({ sectionTitle, categoryLabels }: HomeTechStackProps) {
   const [selectedCategory, setSelectedCategory] = useState<CategoryKey>(
-    TECH_STACK_DATA[0].category,
+    TECH_STACK_DATA[0].category
   );
 
   const currentItems = TECH_STACK_DATA.find((s) => s.category === selectedCategory)?.items ?? [];

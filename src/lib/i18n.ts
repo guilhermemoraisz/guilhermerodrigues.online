@@ -20,7 +20,12 @@ const MESSAGES: Record<Locale, Messages> = {
     },
     links: { resume: "Resume" },
     sections: { experiences: "Experiences", techStack: "Tech Stack" },
-    categories: { frontend: "Front-End", backend: "Back-End", database: "Database", tools: "Tools" },
+    categories: {
+      frontend: "Front-End",
+      backend: "Back-End",
+      database: "Database",
+      tools: "Tools",
+    },
     seo: {
       title: "Guilherme Rodrigues - Web Developer",
       description:

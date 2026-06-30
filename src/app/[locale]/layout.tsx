@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
+import { DEFAULT_LOCALE, getMessages, type Locale, SUPPORTED_LOCALES } from "@/lib/i18n";
 import { ThemeProvider } from "@/providers/theme-provider";
-import { getMessages, SUPPORTED_LOCALES, DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -64,7 +64,12 @@ export default async function LocaleLayout({
   return (
     <html lang={htmlLang} suppressHydrationWarning>
       <body className={`bg-background text-text antialiased ${inter.className}`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
       </body>

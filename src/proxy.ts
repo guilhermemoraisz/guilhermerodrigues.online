@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import { SUPPORTED_LOCALES, detectLocale } from "@/lib/i18n";
+import { type NextRequest, NextResponse } from "next/server";
+import { detectLocale, SUPPORTED_LOCALES } from "@/lib/i18n";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
