@@ -4,8 +4,8 @@ interface HomeLinksProps {
 
 export function HomeLinks({ resumeLabel }: HomeLinksProps) {
   const links = [
-    { label: "GitHub", url: "https://github.com/CndGui" },
-    { label: "LinkedIn", url: "https://www.linkedin.com/in/guilhermemorais-dev/" },
+    { label: "GitHub", url: "https://github.com/guilhermemoraisz" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/guilhermemoraisz/" },
     { label: resumeLabel, url: "/files/resume.pdf" },
   ];
 
