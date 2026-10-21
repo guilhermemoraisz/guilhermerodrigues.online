@@ -6,7 +6,7 @@ export const en: Messages = {
     role: "Full Stack Developer",
     intro: "Interfaces, APIs, and everything in between.",
     summary: "Currently at CI&T, contributing to a project for a client in the automotive industry. I enjoy understanding the problem, building with a team, and looking after the details that make software work well.",
-    resume: "Résumé",
+    resume: "Resume",
   },
   experience: {
     title: "Experience", present: "Present",

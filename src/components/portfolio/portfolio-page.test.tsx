@@ -27,10 +27,10 @@ describe("PortfolioPage", () => {
     expect(screen.getByRole("link", { name: /GitHub/ })).toHaveAttribute("href", portfolio.github);
     expect(screen.getByRole("link", { name: /LinkedIn/ })).toHaveAttribute("href", portfolio.linkedin);
     expect(screen.getByRole("link", { name: portfolio.email })).toHaveAttribute("href", `mailto:${portfolio.email}`);
-    expect(screen.getByRole("link", { name: /Résumé/ })).toHaveAttribute("href", "/files/resume.pdf");
+    expect(screen.getByRole("link", { name: /Resume/ })).toHaveAttribute("href", "/files/resume.pdf");
   });
   it("hides the resume when none is configured", () => {
     render(<PortfolioPage locale="en" messages={en} data={{ ...portfolio, resumeUrl: undefined }} />);
-    expect(screen.queryByRole("link", { name: /Résumé/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Resume/ })).not.toBeInTheDocument();
   });
 });
