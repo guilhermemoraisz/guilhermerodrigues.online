@@ -1,77 +1,50 @@
-import { Inter } from "next/font/google";
-import { DEFAULT_LOCALE, getMessages, type Locale, SUPPORTED_LOCALES } from "@/lib/i18n";
-import { ThemeProvider } from "@/providers/theme-provider";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { notFound } from "next/navigation";
+import { ThemeProvider } from "@/components/theme-provider";
+import { getMessages } from "@/content/messages";
+import { isLocale, SUPPORTED_LOCALES } from "@/lib/locale";
 import "../globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const sans = Geist({ subsets: ["latin"], variable: "--font-geist-sans", display: "swap" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
-const BASE_URL = "https://www.guilhermerodrigues.site";
-
-function toLocale(raw: string): Locale {
-  return SUPPORTED_LOCALES.includes(raw as Locale) ? (raw as Locale) : DEFAULT_LOCALE;
-}
+type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
 
 export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
-  const locale = toLocale((await params).locale);
-  const { seo } = getMessages(locale);
-
+export async function generateMetadata({ params }: Pick<Props, "params">): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const messages = getMessages(locale);
   return {
-    title: seo.title,
-    description: seo.description,
-    authors: [{ name: "Guilherme Rodrigues de Morais", url: BASE_URL }],
-    metadataBase: new URL(BASE_URL),
-    creator: "Guilherme Rodrigues de Morais",
-    publisher: "Guilherme Rodrigues de Morais",
-    alternates: {
-      canonical: `${BASE_URL}/${locale}`,
-      languages: {
-        "en-US": `${BASE_URL}/en-us`,
-        "pt-BR": `${BASE_URL}/pt-br`,
-        "x-default": `${BASE_URL}/en-us`,
-      },
-    },
-    twitter: {
-      title: seo.title,
-      description: seo.description,
-      siteId: "2824372050",
-      creator: "@CndGui",
-      creatorId: "2824372050",
-      card: "summary_large_image",
-    },
+    metadataBase: new URL(process.env.SITE_URL ?? "https://www.guilhermerodrigues.online"),
+    title: messages.metadata.title,
+    description: messages.metadata.description,
+    authors: [{ name: "Guilherme Rodrigues" }],
+    alternates: { canonical: `/${locale}`, languages: { pt: "/pt", en: "/en", "x-default": "/en" } },
     openGraph: {
+      title: messages.metadata.title,
+      description: messages.metadata.description,
+      url: `/${locale}`,
+      siteName: "Guilherme Rodrigues",
       type: "website",
-      title: seo.title,
-      description: seo.description,
+      locale: locale === "pt" ? "pt_BR" : "en_US",
+      alternateLocale: locale === "pt" ? "en_US" : "pt_BR",
     },
-    applicationName: seo.title,
+    twitter: { card: "summary", title: messages.metadata.title, description: messages.metadata.description },
   };
 }
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}) {
-  const locale = toLocale((await params).locale);
-  const htmlLang = locale === "pt-br" ? "pt-BR" : "en-US";
-
+export default async function LocaleLayout({ children, params }: Props) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
   return (
-    <html lang={htmlLang} suppressHydrationWarning>
-      <body className={`bg-background text-text antialiased ${inter.className}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+    <html lang={locale} suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

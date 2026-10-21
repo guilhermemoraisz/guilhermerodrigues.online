@@ -1,20 +1,21 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { detectLocale, SUPPORTED_LOCALES } from "@/lib/i18n";
+import { NextResponse, type NextRequest } from "next/server";
+import { resolveLocale } from "@/lib/locale";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const aliases: Record<string, string> = { "/pt-br": "/pt", "/en-us": "/en" };
+  const destination = pathname === "/"
+    ? `/${resolveLocale(request.headers.get("accept-language"))}`
+    : aliases[pathname];
 
-  if (SUPPORTED_LOCALES.some((l) => pathname.startsWith(`/${l}`))) {
-    return;
-  }
+  if (!destination) return NextResponse.next();
 
-  const acceptLanguage = request.headers.get("accept-language") ?? "";
-  const locale = detectLocale(acceptLanguage);
-  const target = pathname === "/" ? "" : pathname;
-
-  return NextResponse.redirect(new URL(`/${locale}${target}`, request.url));
+  const url = request.nextUrl.clone();
+  url.pathname = destination;
+  const response = NextResponse.redirect(url, 307);
+  response.headers.set("Cache-Control", "private, no-store");
+  if (pathname === "/") response.headers.set("Vary", "Accept-Language");
+  return response;
 }
 
-export const config = {
-  matcher: ["/((?!_next|api|files|images|favicon\\.ico).*)"],
-};
+export const config = { matcher: ["/", "/pt-br", "/en-us"] };

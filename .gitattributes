@@ -1,4 +1,4 @@
-# Normalize line endings to LF on commit; check out as-is.
+﻿# Normalize line endings to LF on commit; check out as-is.
 * text=auto eol=lf
 
 # Binary files: never alter.
