@@ -32,7 +32,7 @@ describe("portfolio content", () => {
     expect(pt.education.course).toBe("Análise e Desenvolvimento de Sistemas");
     expect(pt.education.expected).toContain("meados de 2027");
   });
-  it("preserves confirmed periods and contact details without a fabricated resume", () => {
+  it("preserves confirmed periods, contact details and the restored resume URL", () => {
     expect(portfolio.periods).toEqual({
       cit: { start: "2026-04" },
       screenNetwork: { start: "2018-01", end: "2019-01" },
@@ -41,7 +41,7 @@ describe("portfolio content", () => {
     expect(portfolio.github).toBe("https://github.com/guilhermemoraisz");
     expect(portfolio.linkedin).toBe("https://www.linkedin.com/in/guilhermemoraisz/");
     expect(portfolio.email).toBe("guilhermemorais.dev@gmail.com");
-    expect(portfolio.resumeUrl).toBeUndefined();
+    expect(portfolio.resumeUrl).toBe("/files/resume.pdf");
   });
   it("formats month/year in the selected language without timezone drift", () => {
     expect(formatMonth("2026-04", "en")).toBe("Apr 2026");

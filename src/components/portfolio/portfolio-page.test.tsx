@@ -22,15 +22,15 @@ describe("PortfolioPage", () => {
     expect(screen.queryByRole("form")).not.toBeInTheDocument();
     expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
   });
-  it("renders confirmed contacts without a broken resume", () => {
+  it("renders confirmed contacts and the restored resume", () => {
     render(<PortfolioPage locale="en" messages={en} />);
     expect(screen.getByRole("link", { name: /GitHub/ })).toHaveAttribute("href", portfolio.github);
     expect(screen.getByRole("link", { name: /LinkedIn/ })).toHaveAttribute("href", portfolio.linkedin);
     expect(screen.getByRole("link", { name: portfolio.email })).toHaveAttribute("href", `mailto:${portfolio.email}`);
-    expect(screen.queryByRole("link", { name: /Résumé/ })).not.toBeInTheDocument();
-  });
-  it("renders a resume only when one is configured", () => {
-    render(<PortfolioPage locale="en" messages={en} data={{ ...portfolio, resumeUrl: "/files/resume.pdf" }} />);
     expect(screen.getByRole("link", { name: /Résumé/ })).toHaveAttribute("href", "/files/resume.pdf");
+  });
+  it("hides the resume when none is configured", () => {
+    render(<PortfolioPage locale="en" messages={en} data={{ ...portfolio, resumeUrl: undefined }} />);
+    expect(screen.queryByRole("link", { name: /Résumé/ })).not.toBeInTheDocument();
   });
 });

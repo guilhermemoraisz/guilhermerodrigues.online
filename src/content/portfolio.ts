@@ -7,8 +7,7 @@ export const portfolio = {
   email: "guilhermemorais.dev@gmail.com",
   github: "https://github.com/guilhermemoraisz",
   linkedin: "https://www.linkedin.com/in/guilhermemoraisz/",
-  // Set only after checking that the document exists and is ready to share.
-  resumeUrl: undefined as string | undefined,
+  resumeUrl: "/files/resume.pdf" as string | undefined,
   periods: {
     cit: { start: "2026-04" as YearMonth },
     screenNetwork: { start: "2018-01" as YearMonth, end: "2019-01" as YearMonth },

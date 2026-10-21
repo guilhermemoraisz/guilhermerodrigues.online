@@ -55,17 +55,17 @@ A primeira visita segue a preferência de tema do sistema. O botão no cabeçalh
 
 Ao editar conteúdo, mantenha as duas traduções equivalentes. O posicionamento é full stack, mas o cargo de estágio na CI&T deve continuar explícito. Não publique métricas, imagens, código interno ou garantias de segurança sem confirmação.
 
-## Currículo (pendente)
+## Currículo
 
-O PDF ainda não foi fornecido. Nenhum documento fictício ou link quebrado é exibido.
+O currículo da versão anterior do projeto foi restaurado em `public/files/resume.pdf` e está disponível na rota `/files/resume.pdf`.
 
-Quando houver um currículo aprovado:
+Para atualizar o currículo:
 
 1. Coloque o arquivo em `public/files/resume.pdf` ou valide uma URL pública existente.
 2. Defina `resumeUrl` em `src/content/portfolio.ts` para `/files/resume.pdf` ou a URL validada.
 3. Confira o download no navegador e revise os dados pessoais antes da publicação.
 
-O link aparece automaticamente no topo. E-mail, LinkedIn e GitHub já funcionam sem o currículo. Não há formulário ou backend de contato.
+O link aparece no topo nos dois idiomas, configurado por `resumeUrl` em `src/content/portfolio.ts`. Não há formulário ou backend de contato.
 
 ## Metadados e publicação
 
